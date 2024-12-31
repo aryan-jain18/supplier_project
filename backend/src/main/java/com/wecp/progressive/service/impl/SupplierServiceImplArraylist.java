@@ -9,27 +9,29 @@ import com.wecp.progressive.service.SupplierService;
 
 public class SupplierServiceImplArraylist implements SupplierService {
 
-    priavte static List<Supplier> supplierList = new ArrayList<>();
+    private static List<Supplier> supplierList = new ArrayList<>();
 
     @Override
     public int addSupplier(Supplier supplier) {
-        
-        supplierList.add(supplier);
-        return supplierList.size();
+        // TODO Auto-generated method stub
+        return 0;
     }
 
     @Override
     public List<Supplier> getAllSuppliers() {
-        
-        return supplierList;
+        // TODO Auto-generated method stub
+        return null;
     }
 
     @Override
     public List<Supplier> getAllSuppliersSortedByName() {
-        List<Supplier> sortedSupplier = supplierList;
-        sortedSupllier.sort(Comparator.comparing(Supplier::getSupplier_name()))
+        // TODO Auto-generated method stub
         return null;
     }
+
+   
+    
+   
 
     
 

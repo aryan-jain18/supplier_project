@@ -9,7 +9,7 @@ public class SupplierDAOImpl implements SupplierDAO {
     @Override
     public int addSupplier(Supplier supplier) {
         // TODO Auto-generated method stub
-        return 0;
+        return -1;
     }
 
     @Override
