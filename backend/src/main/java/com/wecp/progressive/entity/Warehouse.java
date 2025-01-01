@@ -81,8 +81,8 @@ public class Warehouse implements Comparable<Warehouse> {
 
 
     @Override
-    public int compareTo(Warehouse other) {
-        return Integer.compare(other.getCapacity(),this.getCapacity());
+    public int compareTo(Warehouse otherWarehouse) {
+        return otherWarehouse.getCapacity() - this.getCapacity();
     }
 
 

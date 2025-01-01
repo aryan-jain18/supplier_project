@@ -134,9 +134,8 @@ public void setRole(String role) {
 
 
 @Override
-public int compareTo(Supplier o) {
-    // TODO Auto-generated method stub
-    return 0;
+public int compareTo(Supplier otherSupplier) {
+   return this.getSupplierName().compareTo(otherSupplier.getSupplierName());
 }  
     
 

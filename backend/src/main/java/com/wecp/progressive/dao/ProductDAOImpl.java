@@ -14,7 +14,7 @@ import com.wecp.progressive.entity.Product;
 public class ProductDAOImpl implements ProductDAO {
 
     @Override
-    public int addProduct(Product product)  throws SQLException{
+    public int addProduct(Product product) throws SQLException  {
         
         Connection connection = null;
         PreparedStatement statement = null;
@@ -52,11 +52,11 @@ public class ProductDAOImpl implements ProductDAO {
         }
       
     }
-    return 0;  
+    return 0;
 }
 
     @Override
-    public void deleteProduct(int productId)  throws SQLException{
+    public void deleteProduct(int productId) throws SQLException  {
 
         Connection connection = null;
         PreparedStatement statement = null;
@@ -85,7 +85,7 @@ public class ProductDAOImpl implements ProductDAO {
     }
 
     @Override
-    public List<Product> getAllProducts() throws SQLException {
+    public List<Product> getAllProducts()  throws SQLException{
         List<Product> products = new ArrayList<>();
         Connection connection = null;
         PreparedStatement statement = null;
@@ -161,7 +161,7 @@ public class ProductDAOImpl implements ProductDAO {
     }
 
     @Override
-    public void updateProduct(Product product) throws SQLException {
+    public void updateProduct(Product product) throws SQLException  {
 
         Connection connection = null;
         PreparedStatement statement = null;

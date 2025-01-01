@@ -4,39 +4,47 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.wecp.progressive.dao.ProductDAO;
+import com.wecp.progressive.dao.ProductDAOImpl;
 import com.wecp.progressive.entity.Product;
+import com.wecp.progressive.service.ProductService;
 
-public class ProductServiceImplJdbc implements  ProductDAO {
+public class ProductServiceImplJdbc implements  ProductService {
 
-    @Override
-    public int addProduct(Product product) throws SQLException {
-        
-        return 0;
-    }
+    
 
-    @Override
-    public void deleteProduct(int productId) throws SQLException {
-        // TODO Auto-generated method stub
-        
+    
+
+    private ProductDAO productDAO;
+
+    public ProductServiceImplJdbc(ProductDAO productDAO) {
+        this.productDAO = productDAO;
     }
 
     @Override
     public List<Product> getAllProducts() throws SQLException {
-        // TODO Auto-generated method stub
-        return null;
+        return productDAO.getAllProducts();
     }
 
     @Override
     public Product getProductById(int productId) throws SQLException {
-        // TODO Auto-generated method stub
-        return null;
+        return productDAO.getProductById(productId);
+    }
+
+    @Override
+    public int addProduct(Product product) throws SQLException {
+        return productDAO.addProduct(product);
     }
 
     @Override
     public void updateProduct(Product product) throws SQLException {
-        // TODO Auto-generated method stub
-        
+        productDAO.updateProduct(product);
     }
+
+    @Override
+    public void deleteProduct(int productId) throws SQLException {
+        productDAO.deleteProduct(productId);
+    }
+
 
 
 
