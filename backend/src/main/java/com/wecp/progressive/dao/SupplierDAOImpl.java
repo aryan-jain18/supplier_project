@@ -1,5 +1,9 @@
 package com.wecp.progressive.dao;
 
+
+import com.wecp.progressive.config.DatabaseConnectionManager;
+import com.wecp.progressive.entity.Supplier;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,10 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.wecp.progressive.config.DatabaseConnectionManager;
-import com.wecp.progressive.entity.Supplier;
-
 public class SupplierDAOImpl implements SupplierDAO {
+
 
     @Override
     public int addSupplier(Supplier supplier) throws SQLException {
@@ -40,7 +42,6 @@ public class SupplierDAOImpl implements SupplierDAO {
             e.printStackTrace();
             throw e; 
         } finally {
-            
             if (statement != null) {
                 statement.close();
             }
@@ -73,7 +74,7 @@ public class SupplierDAOImpl implements SupplierDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            throw e; 
+            throw e;
         } finally {
             if (connection != null) {
                 connection.close();
@@ -102,7 +103,7 @@ public class SupplierDAOImpl implements SupplierDAO {
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            throw e; 
+            throw e; // Rethrow the exception
         } finally {
             if (connection != null) {
                 connection.close();
@@ -123,7 +124,7 @@ public class SupplierDAOImpl implements SupplierDAO {
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            throw e; 
+            throw e; // Rethrow the exception
         } finally {
             if (connection != null) {
                 connection.close();
@@ -157,7 +158,7 @@ public class SupplierDAOImpl implements SupplierDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            throw e; 
+            throw e; // Rethrow the exception
         } finally {
             if (connection != null) {
                 connection.close();
@@ -167,4 +168,3 @@ public class SupplierDAOImpl implements SupplierDAO {
         return suppliers;
     }
 }
-

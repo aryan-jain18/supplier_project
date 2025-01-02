@@ -4,14 +4,20 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.wecp.progressive.dao.SupplierDAO;
 import com.wecp.progressive.entity.Supplier;
 import com.wecp.progressive.service.SupplierService;
 
-
+@Service
 public class SupplierServiceImplArraylist implements SupplierService {
 
+   
     private SupplierDAO supplierDAO;
+
+
 
     
 
@@ -19,7 +25,7 @@ public class SupplierServiceImplArraylist implements SupplierService {
         this.supplierDAO = supplierDAO;
     }
 
-    private static List<Supplier> supplierList;
+    private static List<Supplier> supplierList = new ArrayList<>();
     public SupplierServiceImplArraylist()
     {
      supplierList = new ArrayList<>();
@@ -44,7 +50,7 @@ public class SupplierServiceImplArraylist implements SupplierService {
     }
     @Override
     public void emptyArrayList() {
-        // TODO Auto-generated method stub
+        
         supplierList =  new ArrayList<>();
     }
 

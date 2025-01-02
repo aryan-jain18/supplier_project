@@ -4,19 +4,14 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.wecp.progressive.dao.ProductDAO;
-import com.wecp.progressive.dao.ProductDAOImpl;
 import com.wecp.progressive.entity.Product;
 import com.wecp.progressive.service.ProductService;
 
-public class ProductServiceImplJdbc implements  ProductService {
-
-    
-
-    
+public class ProductServiceImplJdbc implements ProductService  {
 
     private ProductDAO productDAO;
 
-    public ProductServiceImplJdbc(ProductDAO productDAO) {
+    public ProductServiceImplJdbc (ProductDAO productDAO) {
         this.productDAO = productDAO;
     }
 
@@ -42,16 +37,8 @@ public class ProductServiceImplJdbc implements  ProductService {
 
     @Override
     public void deleteProduct(int productId) throws SQLException {
-        productDAO.deleteProduct(productId);
+       productDAO.deleteProduct(productId);
     }
 
-
-
-
-
-
-
-
-    
 
 }

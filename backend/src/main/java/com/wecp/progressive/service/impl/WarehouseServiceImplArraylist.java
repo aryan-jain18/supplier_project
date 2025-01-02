@@ -4,17 +4,22 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.wecp.progressive.dao.WarehouseDAO;
 import com.wecp.progressive.dao.WarehouseDAOImpl;
 import com.wecp.progressive.entity.Supplier;
 import com.wecp.progressive.entity.Warehouse;
 import com.wecp.progressive.service.WarehouseService;
 
+@Service
 public class WarehouseServiceImplArraylist implements WarehouseService  {
 
 
-     private static List<Warehouse> warehouseList;
+     private static List<Warehouse> warehouseList = new ArrayList<>();
 
+     
      private WarehouseDAO warehouseDAO;
 
      
@@ -39,7 +44,7 @@ public class WarehouseServiceImplArraylist implements WarehouseService  {
 
     @Override
     public List<Warehouse> getAllWarehouses() {
-        // TODO Auto-generated method stub
+      
         return warehouseList;
     }
 
@@ -54,7 +59,7 @@ public class WarehouseServiceImplArraylist implements WarehouseService  {
 
     @Override
     public void emptyArrayList() {
-        // TODO Auto-generated method stub
+        
         warehouseList = new ArrayList<>();
     }
 

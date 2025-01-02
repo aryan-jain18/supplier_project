@@ -1,19 +1,17 @@
 package com.wecp.progressive.service.impl;
 
+import com.wecp.progressive.dao.WarehouseDAO;
+import com.wecp.progressive.entity.Supplier;
+import com.wecp.progressive.entity.Warehouse;
+import com.wecp.progressive.service.WarehouseService;
+
 import java.sql.SQLException;
 import java.util.Comparator;
 import java.util.List;
 
-import com.wecp.progressive.dao.WarehouseDAO;
-import com.wecp.progressive.dao.WarehouseDAOImpl;
-import com.wecp.progressive.entity.Warehouse;
-import com.wecp.progressive.service.WarehouseService;
+public class WarehouseServiceImplJdbc implements WarehouseService {
 
-public class WarehouseServiceImplJdbc implements  WarehouseService  {
-
-   
-
-     private WarehouseDAO warehouseDAO;
+    private WarehouseDAO warehouseDAO;
 
     public WarehouseServiceImplJdbc(WarehouseDAO warehouseDAO) {
         this.warehouseDAO = warehouseDAO;
@@ -33,7 +31,7 @@ public class WarehouseServiceImplJdbc implements  WarehouseService  {
     public List<Warehouse> getWarehousesSortedByCapacity() throws SQLException {
         List<Warehouse> sortedWarehouse = warehouseDAO.getAllWarehouse();
         if (sortedWarehouse != null) {
-            sortedWarehouse.sort(Comparator.comparingInt(Warehouse::getCapacity)); 
+            sortedWarehouse.sort(Comparator.comparingInt(Warehouse::getCapacity)); // Sort by capacity
         }
         return sortedWarehouse;
     }
@@ -52,8 +50,4 @@ public class WarehouseServiceImplJdbc implements  WarehouseService  {
     public Warehouse getWarehouseById(int warehouseId) throws SQLException {
         return warehouseDAO.getWarehouseById(warehouseId);
     }
-
-
-    
-
 }

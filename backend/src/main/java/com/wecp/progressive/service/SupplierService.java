@@ -17,13 +17,15 @@ public interface SupplierService {
     }
 
     //Do not implement these methods in SupplierServiceImplArraylist.java class
-    default void updateSupplier(Supplier supplier) throws SQLException {
+    default void updateSupplier(Supplier supplier)throws SQLException 
+    {}
+
+    default void deleteSupplier(int supplierId)throws SQLException 
+    {
     }
 
-    default void deleteSupplier(int supplierId)throws SQLException {
-    }
-
-    default Supplier getSupplierById(int supplierId)throws SQLException {
+    default Supplier getSupplierById(int supplierId)throws SQLException
+     {
         return null;
     }
 

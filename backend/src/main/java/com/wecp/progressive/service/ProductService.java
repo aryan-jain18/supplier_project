@@ -9,7 +9,7 @@ public interface ProductService {
 
     List<Product> getAllProducts() throws SQLException;
 
-    Product getProductById(int productId) throws SQLException;
+    Product getProductById(int productId)throws SQLException;
 
     int addProduct(Product product) throws SQLException;
 

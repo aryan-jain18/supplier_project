@@ -1,3 +1,4 @@
+
 package com.wecp.progressive.service.impl;
 
 import java.sql.SQLException;
@@ -49,10 +50,5 @@ public class SupplierServiceImplJdbc implements SupplierService  {
     public Supplier getSupplierById(int supplierId) throws SQLException {
         return supplierDAO.getSupplierById(supplierId);
     }
+    
 }
-
-
-    
-
-    
-
