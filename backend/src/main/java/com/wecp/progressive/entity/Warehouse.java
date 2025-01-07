@@ -1,38 +1,27 @@
 package com.wecp.progressive.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
+import javax.persistence.*;
 
 @Entity
 public class Warehouse implements Comparable<Warehouse> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer warehouseId;
+    private int warehouseId;
     
-    private Integer supplierId;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "supplierId")
+    private Supplier supplier;
     private String warehouseName;
     private String location;
     private int capacity;
 
-    public Warehouse() {}
-
-    // Warehouse(int,int,java.lang.String,java.lang.String,int)
-    
+    public Warehouse() {
+    }
 
     public Warehouse(int warehouseId, int supplierId, String warehouseName, String location, int capacity) {
         this.warehouseId = warehouseId;
-        this.supplierId = supplierId;
-        this.warehouseName = warehouseName;
-        this.location = location;
-        this.capacity = capacity;
-    }
-
-    public Warehouse(int supplierId, String warehouseName, String location, int capacity) {
-        this.supplierId = supplierId;
+        this.supplier.setSupplierId(supplierId);
         this.warehouseName = warehouseName;
         this.location = location;
         this.capacity = capacity;
@@ -46,12 +35,12 @@ public class Warehouse implements Comparable<Warehouse> {
         this.warehouseId = warehouseId;
     }
 
-    public int getSupplierId() {
-        return supplierId;
+    public Supplier getSupplier() {
+        return supplier;
     }
 
-    public void setSupplierId(int supplier) {
-        this.supplierId = supplier;
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
     }
 
     public String getWarehouseName() {
@@ -80,6 +69,7 @@ public class Warehouse implements Comparable<Warehouse> {
 
     @Override
     public int compareTo(Warehouse otherWarehouse) {
-        return otherWarehouse.getCapacity() - this.getCapacity();
+        // Implement comparison logic based on warehouse capacity
+        return Double.compare(otherWarehouse.getCapacity(), this.getCapacity());
     }
 }

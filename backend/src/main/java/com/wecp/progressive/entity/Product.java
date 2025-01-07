@@ -1,35 +1,57 @@
 package com.wecp.progressive.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import javax.persistence.ManyToOne;
 
 
 @Entity
-public class Product {
-
+public class Product  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int productId;
-    private int warehouseId;
-    private String productName;
-    private String productDescription;
-    private int quantity;
-    private Long price;
+    Integer productId;
+    Integer warehouseId;
+    String productName;
+    String productDescription;
+    int quantity;
+    long price;
 
-    public Product() {
-    }
+    // @OneToMany(mappedBy = "products", cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
+    Warehouse warehouse;
+    
     public Product(int productId, int warehouseId, String productName, String productDescription, int quantity,
-            Long price) {
+            long price) {
         this.productId = productId;
         this.warehouseId = warehouseId;
         this.productName = productName;
         this.productDescription = productDescription;
         this.quantity = quantity;
         this.price = price;
+    }
+    public Product () {}
+    public Product(int warehouseId, String productName, String productDescription, int quantity,
+    long price) {
+        this.warehouseId = warehouseId;
+        this.productName = productName;
+        this.productDescription = productDescription;
+        this.quantity = quantity;
+        this.price = price;
+    }
+    public void setProductId(Integer productId) {
+        this.productId = productId;
+    }
+    public void setWarehouseId(Integer warehouseId) {
+        this.warehouseId = warehouseId;
+    }
+    public Warehouse getWarehouse() {
+        return warehouse;
+    }
+    public void setWarehouse(Warehouse warehouse) {
+        this.warehouse = warehouse;
     }
     public int getProductId() {
         return productId;
@@ -61,21 +83,10 @@ public class Product {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-    public Long getPrice() {
+    public long getPrice() {
         return price;
     }
-    public void setPrice(Long price) {
+    public void setPrice(long price) {
         this.price = price;
     }
-
-    
-    
-    
-
-    
-    
-    
-    
-
-
 }

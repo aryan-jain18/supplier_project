@@ -1,50 +1,42 @@
+
 package com.wecp.progressive.service.impl;
+
+import com.wecp.progressive.entity.Warehouse;
+import com.wecp.progressive.exception.NoWarehouseFoundForSupplierException;
+import com.wecp.progressive.repository.WarehouseRepository;
+import com.wecp.progressive.service.WarehouseService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
+@Service
+public class WarehouseServiceImplJpa implements WarehouseService {
 
-import com.wecp.progressive.dao.WarehouseDAO;
-import com.wecp.progressive.dao.WarehouseDAOImpl;
-import com.wecp.progressive.entity.Warehouse;
-import com.wecp.progressive.repository.WarehouseRepository;
-import com.wecp.progressive.service.WarehouseService;
-
-public class WarehouseServiceImplJpa implements WarehouseService  {
-
-    
-    // private WarehouseDAO warehouseDAO;
     private WarehouseRepository warehouseRepository;
 
-    public WarehouseServiceImplJpa (WarehouseRepository warehouseRepository)  {
+    @Autowired
+    public WarehouseServiceImplJpa(WarehouseRepository warehouseRepository) {
         this.warehouseRepository = warehouseRepository;
     }
 
-    // @Autowired
-    // WarehouseRepository warehouseRepository;
-
     @Override
-    public List<Warehouse> getAllWarehouses() throws SQLException{
-        // TODO Auto-generated method stub
+    public List<Warehouse> getAllWarehouses() throws SQLException {
         return warehouseRepository.findAll();
     }
 
     @Override
-    public int addWarehouse(Warehouse warehouse) throws SQLException{
-        // TODO Auto-generated method stub
-        warehouseRepository.save(warehouse);
-        return warehouse.getWarehouseId();
+    public int addWarehouse(Warehouse warehouse) throws SQLException {
+        return warehouseRepository.save(warehouse).getWarehouseId();
     }
 
     @Override
-    public List<Warehouse> getWarehousesSortedByCapacity() throws SQLException{
-        // TODO Auto-generated method stub
-        List<Warehouse> ware = warehouseRepository.findAll();
-        Collections.sort(ware);
-        return ware;
+    public List<Warehouse> getWarehousesSortedByCapacity() throws SQLException {
+        List<Warehouse> sortedWarehouses = warehouseRepository.findAll();
+        Collections.sort(sortedWarehouses);
+        return sortedWarehouses;
     }
 
     @Override
@@ -59,12 +51,12 @@ public class WarehouseServiceImplJpa implements WarehouseService  {
 
     @Override
     public Warehouse getWarehouseById(int warehouseId) throws SQLException {
-        return warehouseRepository.findById(warehouseId).get();
+        return warehouseRepository.findByWarehouseId(warehouseId);
     }
 
-    // @Override
-    // public List<Warehouse> getWarehouseBySupplier(int supplierId) throws SQLException {
-    //     return warehouseRepository.findBy
-    // }
-    
+    @Override
+    public List<Warehouse> getWarehouseBySupplier(int supplierId) throws NoWarehouseFoundForSupplierException {
+        List<Warehouse> warehouseList = warehouseRepository.findAllBySupplier_SupplierId(supplierId);
+        return warehouseList;
+    }
 }
