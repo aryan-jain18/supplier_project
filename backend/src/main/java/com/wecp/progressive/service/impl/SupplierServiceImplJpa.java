@@ -24,6 +24,12 @@ public class SupplierServiceImplJpa implements SupplierService {
     private final SupplierRepository supplierRepository;
 
     @Autowired
+    ProductRepository productRepository;
+
+    @Autowired
+    WarehouseRepository warehouseRepository;
+
+    @Autowired
     public SupplierServiceImplJpa(SupplierRepository supplierRepository) {
         this.supplierRepository = supplierRepository;
     }
@@ -54,6 +60,8 @@ public class SupplierServiceImplJpa implements SupplierService {
     @Override
     @Transactional
     public void deleteSupplier(int supplierId) throws SQLException {
+        productRepository.deleteBySupplierId(supplierId);
+        warehouseRepository.deleteBySupplierId(supplierId);
         supplierRepository.deleteBySupplierId(supplierId);
     }
 

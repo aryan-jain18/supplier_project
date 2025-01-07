@@ -1,7 +1,6 @@
 package com.wecp.progressive.controller;
 
 import com.wecp.progressive.entity.Product;
-import com.wecp.progressive.exception.InsufficientCapacityException;
 import com.wecp.progressive.service.impl.ProductServiceImplJpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,9 +42,8 @@ public class ProductController {
         try {
             int productId = productServiceImplJpa.addProduct(product);
             return new ResponseEntity<>(productId, HttpStatus.CREATED);
-        } catch (InsufficientCapacityException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
+            // Return a generic error message for any other exceptions
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

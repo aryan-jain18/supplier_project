@@ -3,6 +3,7 @@ package com.wecp.progressive.service.impl;
 
 import com.wecp.progressive.entity.Warehouse;
 import com.wecp.progressive.exception.NoWarehouseFoundForSupplierException;
+import com.wecp.progressive.repository.ProductRepository;
 import com.wecp.progressive.repository.WarehouseRepository;
 import com.wecp.progressive.service.WarehouseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +13,15 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 @Service
 public class WarehouseServiceImplJpa implements WarehouseService {
 
     private WarehouseRepository warehouseRepository;
+
+    @Autowired
+    ProductRepository productRepository;
 
     @Autowired
     public WarehouseServiceImplJpa(WarehouseRepository warehouseRepository) {
@@ -40,12 +46,15 @@ public class WarehouseServiceImplJpa implements WarehouseService {
     }
 
     @Override
+    @Transactional
     public void updateWarehouse(Warehouse warehouse) throws SQLException {
         warehouseRepository.save(warehouse);
     }
 
     @Override
+    @Transactional
     public void deleteWarehouse(int warehouseId) throws SQLException {
+        productRepository.deleteByWarehouseId(warehouseId);
         warehouseRepository.deleteById(warehouseId);
     }
 
