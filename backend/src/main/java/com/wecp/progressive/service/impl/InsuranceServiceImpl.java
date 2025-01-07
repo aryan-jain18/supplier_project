@@ -2,43 +2,47 @@ package com.wecp.progressive.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.wecp.progressive.entity.Insurance;
+import com.wecp.progressive.repository.InsuranceRepository;
 import com.wecp.progressive.service.InsuranceService;
 
-public class InsuranceServiceImpl implements InsuranceService {
-
-    @Override
-    public int addInsurance(Insurance insurance) {
-        // TODO Auto-generated method stub
-        return -1;
-    }
-
-    @Override
-    public void deleteInsurance(int insuranceId) {
-        // TODO Auto-generated method stub
-        
-    }
+@Service
+public class InsuranceServiceImpl implements InsuranceService  {
+    
+    @Autowired
+    InsuranceRepository insuranceRepository;
 
     @Override
     public List<Insurance> getAllInsurances() {
         // TODO Auto-generated method stub
-        return List.of();
+        return insuranceRepository.findAll();
+    }
+
+    @Override
+    public int addInsurance(Insurance insurance) {
+        // TODO Auto-generated method stub
+        return insuranceRepository.save(insurance).getInsuranceId();
     }
 
     @Override
     public Insurance getInsuranceById(int insuranceId) {
         // TODO Auto-generated method stub
-        return null;
+        return insuranceRepository.findById(insuranceId).get();
     }
 
     @Override
     public void updateInsurance(Insurance insurance) {
-        // TODO Auto-generated method stub
+        insuranceRepository.save(insurance);
         
     }
 
-    
-
-    
+    @Override
+    public void deleteInsurance(int insuranceId) {
+        // TODO Auto-generated method stub
+        insuranceRepository.deleteById(insuranceId);
+    }
 
 }
