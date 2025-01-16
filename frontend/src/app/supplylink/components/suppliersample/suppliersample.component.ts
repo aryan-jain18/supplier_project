@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Supplier } from '../../types/Supplier';
 import { of } from 'rxjs';
+import { Warehouse } from '../../types/Warehouse';
 
 @Component({
   selector: 'app-suppliersample',
@@ -11,5 +12,5 @@ import { of } from 'rxjs';
   styleUrls: ['./suppliersample.component.css'] 
 })
 export class SupplierSampleComponent {
-  // Component logic goes here
+  supplier: Supplier = new Supplier(1, 'John Wane', 'johnwane@gmail.com', '9876543210', 'texas', 'johnwane', 'July@101', 'USER');
 }
