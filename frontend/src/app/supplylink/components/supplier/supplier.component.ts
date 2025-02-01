@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 
 @Component({
@@ -19,11 +19,22 @@ export class SupplierComponent implements OnInit {
 
   ngOnInit(): void {
     this.supplierForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(3)]],
+      supplierName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      username: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      phone: ['', [Validators.required]],
+      address: [''],
+      username: ['', [Validators.required, this.noSpecialCharacters]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      role: ['', [Validators.required]]
     });
+  }
+
+  noSpecialCharacters (controls : AbstractControl) : ValidationErrors | null {
+    const patternData = /^[a-zA-Z0-9]+$/;
+    if(patternData.test(controls.value)){
+      return {invalid : false};
+    }
+    return {invalid : true};
   }
 
   onSubmit(): void {
