@@ -1,4 +1,4 @@
-<div class=""></div>
+<div class="">
     <h2>Warehouse</h2>
     <div class="">
         <form action="" [formGroup]="warehouseForm">
@@ -59,7 +59,6 @@
               </div>
             
               <button type="submit">Submit</button>
-            </form>
             
             <div *ngIf="(warehouseError$ | async) as warehouseError" class="error">
               {{ warehouseError }}
