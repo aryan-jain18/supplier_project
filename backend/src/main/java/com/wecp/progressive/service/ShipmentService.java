@@ -10,7 +10,7 @@ public interface ShipmentService {
 
     Shipment getShipmentById(int shipmentId) throws SQLException;
 
-    int addShipment(Shipment shipment)throws SQLException;
+    int addShipment(Shipment shipment) throws SQLException;
 
     void updateShipment(Shipment shipment) throws SQLException;
 

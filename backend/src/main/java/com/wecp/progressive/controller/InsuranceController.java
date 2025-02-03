@@ -1,19 +1,13 @@
 package com.wecp.progressive.controller;
 
 import com.wecp.progressive.entity.Insurance;
-import com.wecp.progressive.service.InsuranceService;
 import com.wecp.progressive.service.impl.InsuranceServiceImpl;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @RestController
@@ -21,64 +15,60 @@ import java.util.List;
 public class InsuranceController {
 
     @Autowired
-    InsuranceServiceImpl insuranceServiceImpl;
+    InsuranceServiceImpl insuranceService;
 
     @GetMapping
     public ResponseEntity<List<Insurance>> getAllInsurances() {
         try {
-            return new ResponseEntity<>(insuranceServiceImpl.getAllInsurances(), HttpStatus.OK);
-        } catch (Exception e) {
-            // TODO: handle exception
-            e.printStackTrace();
+            List<Insurance> insuranceList = insuranceService.getAllInsurances();
+            return new ResponseEntity<>(insuranceList, HttpStatus.OK);
+        } catch (SQLException e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
     }
 
     @GetMapping("/{insuranceId}")
     public ResponseEntity<Insurance> getInsuranceById(@PathVariable int insuranceId) {
         try {
-            Insurance inr = insuranceServiceImpl.getInsuranceById(insuranceId);
-            if(inr == null)
+            Insurance insurance = insuranceService.getInsuranceById(insuranceId);
+            if (insurance != null) {
+                return new ResponseEntity<>(insurance, HttpStatus.OK);
+            } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            return new ResponseEntity<>(inr, HttpStatus.OK);
-        } catch (Exception e) {
-            // TODO: handle exception
-            e.printStackTrace();
+            }
+        } catch (SQLException e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PostMapping
-    public ResponseEntity<?> createInsurance(Insurance insurance) {
+    public ResponseEntity<Integer> createInsurance(@RequestBody Insurance insurance) {
         try {
-            return new ResponseEntity<>(insuranceServiceImpl.getAllInsurances(), HttpStatus.CREATED);
-        } catch (Exception e) {
-            // TODO: handle exception
-            e.printStackTrace();
+            int insuranceId = insuranceService.addInsurance(insurance);
+            return new ResponseEntity<>(insuranceId, HttpStatus.CREATED);
+        } catch (SQLException e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PutMapping("/{insuranceId}")
-    public ResponseEntity<Void> updateInsurance(int insuranceId, Insurance insurance) {
+    public ResponseEntity<Void> updateInsurance(@PathVariable int insuranceId, @RequestBody Insurance insurance) {
         try {
             insurance.setInsuranceId(insuranceId);
-            insuranceServiceImpl.updateInsurance(insurance);
+            insuranceService.updateInsurance(insurance);
             return new ResponseEntity<>(HttpStatus.OK);
-        } catch (Exception e) {
-            // TODO: handle exception
-            e.printStackTrace();
+        } catch (SQLException e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    public ResponseEntity<Void> deleteInsurance(int insuranceId) {
+    @DeleteMapping("/{insuranceId}")
+    public ResponseEntity<Void> deleteInsurance(@PathVariable int insuranceId) {
         try {
-            insuranceServiceImpl.getAllInsurances();
-            return new ResponseEntity<>( HttpStatus.OK);
-        } catch (Exception e) {
-            // TODO: handle exception
-            e.printStackTrace();
+            insuranceService.deleteInsurance(insuranceId);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (SQLException e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

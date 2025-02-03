@@ -2,31 +2,25 @@ package com.wecp.progressive.config;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.DriverManager;
 import java.sql.Connection;
-import java.sql.*;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Properties;
 
-import javax.management.RuntimeErrorException;
-
 public class DatabaseConnectionManager {
-
     private static final Properties properties = new Properties();
 
-    static{
+    static {
         loadProperties();
     }
-    private static void loadProperties()
-    {
-        try(InputStream input = DatabaseConnectionManager.class.getClassLoader().getResourceAsStream("application.properties"))
-        {
-            if(input == null){
+
+    private static void loadProperties() {
+        try (InputStream input = DatabaseConnectionManager.class.getClassLoader().getResourceAsStream("application.properties")) {
+            if (input == null) {
                 throw new IllegalStateException("resource.properties not found in classpath");
-        
             }
             properties.load(input);
-        }catch (IOException e)
-        {
+        } catch (IOException e) {
             throw new RuntimeException("Error loading properties file", e);
         }
     }
@@ -37,5 +31,4 @@ public class DatabaseConnectionManager {
         String password = properties.getProperty("spring.datasource.password");
         return DriverManager.getConnection(url, user, password);
     }
-
 }

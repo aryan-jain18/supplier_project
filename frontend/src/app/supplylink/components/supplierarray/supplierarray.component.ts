@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Supplier } from '../../types/Supplier';
+import { Supplier } from '../../types/Supplier'
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -9,7 +9,6 @@ import { CommonModule } from '@angular/common';
   templateUrl: './supplierarray.component.html',
   styleUrls: ['./supplierarray.component.css']
 })
-
 export class SupplierArrayComponent {
   supplierList: Supplier[] = [
     new Supplier(1, "Jessica Alba", "jessica@gmail.com", "7368289682", "california", "jessica", "July@12221", "USER"),

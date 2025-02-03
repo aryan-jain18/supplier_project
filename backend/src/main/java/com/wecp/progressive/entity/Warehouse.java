@@ -10,7 +10,7 @@ public class Warehouse implements Comparable<Warehouse> {
     private int warehouseId;
     
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "supplier_id")
+    @JoinColumn(name = "supplierId")
     private Supplier supplier;
     private String warehouseName;
     private String location;

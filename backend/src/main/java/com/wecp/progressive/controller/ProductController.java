@@ -1,6 +1,8 @@
 package com.wecp.progressive.controller;
 
 import com.wecp.progressive.entity.Product;
+import com.wecp.progressive.exception.InsufficientCapacityException;
+import com.wecp.progressive.exception.SupplierDoesNotExistException;
 import com.wecp.progressive.service.impl.ProductServiceImplJpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,7 +34,7 @@ public class ProductController {
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -42,9 +44,11 @@ public class ProductController {
         try {
             int productId = productServiceImplJpa.addProduct(product);
             return new ResponseEntity<>(productId, HttpStatus.CREATED);
+        } catch (InsufficientCapacityException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             // Return a generic error message for any other exceptions
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("An unexpected error occurred: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -54,7 +58,7 @@ public class ProductController {
             product.setProductId(productId);
             productServiceImplJpa.updateProduct(product);
             return new ResponseEntity<>(HttpStatus.OK);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -64,7 +68,7 @@ public class ProductController {
         try {
             productServiceImplJpa.deleteProduct(productId);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

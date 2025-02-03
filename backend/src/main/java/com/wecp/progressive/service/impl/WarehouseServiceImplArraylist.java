@@ -1,40 +1,23 @@
 package com.wecp.progressive.service.impl;
 
+import com.wecp.progressive.entity.Supplier;
+import com.wecp.progressive.entity.Warehouse;
+import com.wecp.progressive.service.WarehouseService;
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.wecp.progressive.dao.WarehouseDAO;
-import com.wecp.progressive.dao.WarehouseDAOImpl;
-import com.wecp.progressive.entity.Supplier;
-import com.wecp.progressive.entity.Warehouse;
-import com.wecp.progressive.service.WarehouseService;
-
 @Service
-public class WarehouseServiceImplArraylist implements WarehouseService  {
+public class WarehouseServiceImplArraylist implements WarehouseService {
 
+    private static List<Warehouse> warehouseList = new ArrayList<>();
 
-     private static List<Warehouse> warehouseList = new ArrayList<>();
-
-     
-     private WarehouseDAO warehouseDAO;
-
-     
-
-    public WarehouseServiceImplArraylist(WarehouseDAOImpl warehouseDAO) {
-        this.warehouseDAO = warehouseDAO;
+    @Override
+    public List<Warehouse> getAllWarehouses() {
+        return warehouseList;
     }
-
-    
-
-    public WarehouseServiceImplArraylist() {
-        warehouseList = new ArrayList<>();
-    }
-
-
 
     @Override
     public int addWarehouse(Warehouse warehouse) {
@@ -43,28 +26,14 @@ public class WarehouseServiceImplArraylist implements WarehouseService  {
     }
 
     @Override
-    public List<Warehouse> getAllWarehouses() {
-      
-        return warehouseList;
-    }
-
-    @Override
     public List<Warehouse> getWarehousesSortedByCapacity() {
-       List<Warehouse> sortedWarehouses = warehouseList;
-       sortedWarehouses.sort(Comparator.comparing(Warehouse::getCapacity));
-       return sortedWarehouses;
+        List<Warehouse> sortedWarehouses = warehouseList;
+        sortedWarehouses.sort(Comparator.comparing(Warehouse::getCapacity)); // Sort by supplier name
+        return sortedWarehouses;
     }
-
-
 
     @Override
     public void emptyArrayList() {
-        
         warehouseList = new ArrayList<>();
     }
-
-
-    
-    
-
 }

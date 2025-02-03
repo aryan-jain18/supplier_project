@@ -1,36 +1,3 @@
-// @Service
-// public class ShipmentServiceImpl implements ShipmentService  {
-
-//     @Autowired
-//     ShipmentRepository shipmentRepository;
-
-//     @Override
-//     public List<Shipment> getAllShipments() {
-//         return shipmentRepository.findAll();
-//     }
-
-//     @Override
-//     public Shipment getShipmentById(int shipmentId) {
-//         return shipmentRepository.findByShipmentId(shipmentId);
-//     }
-
-//     @Override
-//     public int addShipment(Shipment shipment) {
-//         return shipmentRepository.save(shipment).getShipmentId();
-//     }
-
-//     @Override
-//     public void updateShipment(Shipment shipment) {
-//         shipmentRepository.save(shipment);
-//     }
-
-//     @Override
-//     public void deleteShipment(int shipmentId) {
-//         shipmentRepository.deleteById(shipmentId);
-//     }
-
-// }
-
 package com.wecp.progressive.service.impl;
 
 import com.wecp.progressive.entity.Shipment;
@@ -48,7 +15,10 @@ public class ShipmentServiceImpl implements ShipmentService {
 
     @Autowired
     ShipmentRepository shipmentRepository;
-    
+
+    @Autowired
+    InsuranceRepository insuranceRepository;
+
     @Override
     public List<Shipment> getAllShipments() throws SQLException {
         return shipmentRepository.findAll();
@@ -71,6 +41,7 @@ public class ShipmentServiceImpl implements ShipmentService {
 
     @Override
     public void deleteShipment(int shipmentId) throws SQLException {
+        insuranceRepository.deleteByShipmentId(shipmentId);
         shipmentRepository.deleteById(shipmentId);
     }
 }

@@ -1,10 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { Warehouse } from '../../types/Warehouse';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Supplier } from "../../types/Supplier";
 import { SupplyLinkService } from "../../services/supplylink.service";
 import { HttpErrorResponse } from "@angular/common/http";
-import { ReactiveFormsModule } from "@angular/forms";
 
 
 @Component({
@@ -13,7 +12,7 @@ import { ReactiveFormsModule } from "@angular/forms";
   styleUrls: ['./warehouse.component.scss']
 })
 export class WarehouseComponent implements OnInit {
-  warehouseForm: FormGroup;
+  warehouseForm!: FormGroup;
   warehouse: Warehouse | null = null;
   successMessage: string | null = null;
   errorMessage: string | null = null;

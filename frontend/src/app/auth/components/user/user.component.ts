@@ -1,18 +1,17 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AuthService } from "../../services/auth.service";
-
+import { HttpErrorResponse } from "@angular/common/http";
 
 @Component({
-    selector : 'app-user',
-    template : './user.component.html',
-
+    selector: "app-user",
+    templateUrl: "./user.component.html",
+    styleUrls: ["./user.component.scss"],
 })
-export class UserComponent  {
-
-    userForm : FormGroup<any>;
-    errorMessage : string = '';
-    successMessage : string = '';
+export class UserComponent implements OnInit {
+    userForm: FormGroup;
+    successMessage: string | null = null;
+    errorMessage: string | null = null;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -21,27 +20,38 @@ export class UserComponent  {
 
     ngOnInit(): void {
         this.userForm = this.formBuilder.group({
-            username: ["", [Validators.required]],
-            password: ["", [Validators.required]],
-            email: ["", [Validators.required, Validators.email]],
+            username: ["", [Validators.required, this.noSpecialCharacters]],
+            password: ["", [Validators.required, Validators.minLength(8)]],
             role: ["", [Validators.required]],
+            supplierName: ["", [Validators.required]],
+            email: ["", [Validators.required, Validators.email]],
         });
+    }
+
+    private noSpecialCharacters(control: any): { [key: string]: boolean } | null {
+        const SPECIAL_CHARACTERS_REGEX = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/;
+        if (SPECIAL_CHARACTERS_REGEX.test(control.value)) {
+            return { specialCharacters: true };
+        }
+        return null;
     }
 
     onSubmit(): void {
         if (this.userForm.valid) {
             this.authService.createUser(this.userForm.value).subscribe({
                 next: (response) => {
-                    this.successMessage = "User created";
+                    this.successMessage = "User created successfully";
                     this.userForm.reset();
+                    this.errorMessage = "";
                 },
                 error: (error) => {
-                    this.errorMessage = error.error ?? "All fields are manadatory";
+                    console.log(error);
+                    this.errorMessage = error.error ?? "Please fill the form correctly";
                 }
             });
         }
         else {
-            this.errorMessage = "All fields are mandatory";
+            this.errorMessage = "Please fill the form correctly";
         }
     }
 }

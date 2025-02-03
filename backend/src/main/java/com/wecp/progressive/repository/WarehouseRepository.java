@@ -18,6 +18,6 @@ public interface WarehouseRepository extends JpaRepository<Warehouse, Integer> {
 
     @Modifying
     @Transactional
-    @Query("DELETE FROM Warehouse w WHERE supplier_id = :supplierId")
+    @Query("DELETE FROM Warehouse w WHERE w.supplier.supplierId = :supplierId")
     void deleteBySupplierId(@Param("supplierId") int supplierId);
 }

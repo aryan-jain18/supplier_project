@@ -10,12 +10,21 @@ import { Supplier } from "../../supplylink/types/Supplier";
 export class AuthService {
   private loginUrl = `${environment.apiUrl}`;
 
+
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    })
+  };
+
   constructor(private http: HttpClient) { }
 
   login(user: Partial<Supplier>): Observable<{ [key: string]: string }> {
     return this.http.post<{ token: string }>(
       `${this.loginUrl}/user/login`,
-      user
+      user,
+      this.httpOptions
     );
   }
 
